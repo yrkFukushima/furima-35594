@@ -1,39 +1,42 @@
 # README
 ## users テーブル
 
-| Column   | Type   | Options     |
-| -------- | ------ | ----------- |
-| nickname | string | null: false |
-| email    | string | null: false |
-| password | string | null: false |
-| name     | string | null: false |
-| ruby     | string | null: false |
-| birthday | string | null: false |
+| Column             | Type   | Options                 |
+| ------------------ | ------ | ----------------------- |
+| nickname           | string | null: false             |
+| email              | string | null: false, unique:true|
+| encrypted_password | string | null: false             |
+| last_name          | string | null: false             |
+| first_name         | string | null: false             |
+| last_name_kana     | string | null: false             |
+| first_name_kana    | string | null: false             |
+| birthday           | date   | null: false             |
 
 ### Association
 
 - has_many :items
 - has_many :comments
-- has_many :customers
+- has_one :address
+
 
 
 ## items テーブル
-| Column          | Type   | Options     |
-| --------------- | ------ | ----------- |
-| item_name       | string | null: false |
-| introduction    | text   | null: false |
-| category        | string | null: false |
-| status          | string | null: false |
-| delivery_charge | string | null: false |
-| consignor       | string | null: false |
-| delivery_time   | string | null: false |
-| price           | string | null: false |
+| Column             | Type    | Options                        |
+| ------------------ | --------| ------------------------------ |
+| item_name          | string  | null: false                    |
+| introduction       | text    | null: false                    |
+| category_id        | integer | null: false                    |
+| status_id          | integer | null: false                    |
+| delivery_charge_id | integer | null: false                    |
+| prefecture_id      | integer | null: false                    |
+| delivery_time_id   | integer | null: false                    |
+| price              | integer | null: false                    |
+| user            | references | null: false, foreign_key: true |
 
 ### Association
 
 - belongs_to :user
 - has_many :comment
-- has_one :customer
 
 ## comments　テーブル
 | Column  | Type       | Options                        |
@@ -46,27 +49,13 @@
 - belongs_to :user
 - belongs_to :item
 
-## customersテーブル
-
-| Column          | Type       | Options                        |
-| --------------- | -----------| ------------------------------ |
-| card_number     | string     | null: false                    |
-| expiration_date | string     | null: false                    |
-| cvc             | string     | null: false                    |
-| item            | references | null: false, foreign_key: true |
-| user            | references | null: false, foreign_key: true |
-
-### Association
-- belongs_to :item
-- belongs_to :user
-- has_one :address
 
 ## addressテーブル
 
  Column         | Type       | Options                        |
 | --------------| ---------- | ------------------------------ |
 | postal_code   | string     | null: false                    |
-| prefecture    | string     | null: false                    |
+| prefecture_id | integer    | null: false                    |
 | city          | string     | null: false                    |
 | address_line1 | string     | null: false                    |
 | address_line2 | string     |                                |
@@ -74,4 +63,5 @@
 | customer      | references | null: false, foreign_key: true |
 
 ## Association
-- belongs_to :customer
+- belongs_to :item
+- belongs_to :user
