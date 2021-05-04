@@ -16,27 +16,28 @@
 
 - has_many :items
 - has_many :comments
-- has_one :address
-
+- has_many :address
+- has_one :purchase
 
 
 ## items テーブル
-| Column             | Type    | Options                        |
-| ------------------ | --------| ------------------------------ |
-| item_name          | string  | null: false                    |
-| introduction       | text    | null: false                    |
-| category_id        | integer | null: false                    |
-| status_id          | integer | null: false                    |
-| delivery_charge_id | integer | null: false                    |
-| prefecture_id      | integer | null: false                    |
-| delivery_time_id   | integer | null: false                    |
-| price              | integer | null: false                    |
-| user            | references | null: false, foreign_key: true |
+| Column             | Type       | Options                        |
+| ------------------ | -----------| ------------------------------ |
+| item_name          | string     | null: false                    |
+| introduction       | text       | null: false                    |
+| category_id        | integer    | null: false                    |
+| status_id          | integer    | null: false                    |
+| delivery_charge_id | integer    | null: false                    |
+| prefecture_id      | integer    | null: false                    |
+| delivery_time_id   | integer    | null: false                    |
+| price              | integer    | null: false                    |
+| user               | references | null: false, foreign_key: true |
 
 ### Association
 
 - belongs_to :user
-- has_many :comment
+- has_many :comments
+- has_one :purchase
 
 ## comments　テーブル
 | Column  | Type       | Options                        |
@@ -49,6 +50,15 @@
 - belongs_to :user
 - belongs_to :item
 
+## purchaseテーブル
+| Column  | Type       | Options                        |
+| ------- | ---------- | ------------------------------ |
+| user    | references | null: false, foreign_key: true |
+| item    | references | null: false, foreign_key: true |
+
+- belongs_to :item
+- belongs_to :user
+
 
 ## addressテーブル
 
@@ -60,8 +70,7 @@
 | address_line1 | string     | null: false                    |
 | address_line2 | string     |                                |
 | tel           | string     | null: false                    |
-| customer      | references | null: false, foreign_key: true |
+| user          | references | null: false, foreign_key: true |
 
 ## Association
-- belongs_to :item
 - belongs_to :user
