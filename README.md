@@ -16,14 +16,13 @@
 
 - has_many :items
 - has_many :comments
-- has_many :address
-- has_one :purchase
+- has_many :purchases
 
 
 ## items テーブル
 | Column             | Type       | Options                        |
 | ------------------ | -----------| ------------------------------ |
-| item_name          | string     | null: false                    |
+| name               | string     | null: false                    |
 | introduction       | text       | null: false                    |
 | category_id        | integer    | null: false                    |
 | status_id          | integer    | null: false                    |
@@ -58,6 +57,7 @@
 
 - belongs_to :item
 - belongs_to :user
+- has_one :address
 
 
 ## addressテーブル
@@ -70,7 +70,8 @@
 | address_line1 | string     | null: false                    |
 | address_line2 | string     |                                |
 | tel           | string     | null: false                    |
-| user          | references | null: false, foreign_key: true |
+| purchase      | references | null: false, foreign_key: true |
 
 ## Association
 - belongs_to :user
+- belongs_to :purchase
