@@ -10,11 +10,12 @@ class Item < ApplicationRecord
 
   with_options presence:true do
     validates :name
-    validates :intoroduction
+    validates :introduction
     validates :category_id
     validates :status_id
     validates :delivery_charge_id
     validates :prefecture_id
     validates :delivery_time_id
     validates :price
+  end  
 end
