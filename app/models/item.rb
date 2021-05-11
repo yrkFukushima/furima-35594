@@ -2,12 +2,14 @@ class Item < ApplicationRecord
 
   belongs_to :user
   has_one_attached :image
+  has_one :purchase
   extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to :category
   belongs_to :status
   belongs_to :delivery_charge
   belongs_to :delivery_time
   belongs_to :prefecture
+
 
   with_options presence:true do
     validates :name,
