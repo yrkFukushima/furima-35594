@@ -1,7 +1,7 @@
 class PurchaseAddress
   include ActiveModel::Model
 
-  attr_accessor :postal_code, :prefecture_id, :city, :address_line1, :address_line2, :tel, :user_id, :item_id 
+  attr_accessor :postal_code, :prefecture_id, :city, :address_line1, :address_line2, :tel, :user_id, :item_id, :token
   
   with_options presence:true do
     validates :postal_code, 
@@ -13,6 +13,7 @@ class PurchaseAddress
     validates :tel,
     length: { maximum: 11},
     format: {with: /\A[0-9]+\z/}
+    validates :token
   end
   
   def save
