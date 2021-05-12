@@ -14,6 +14,8 @@ class PurchaseAddress
     length: { maximum: 11},
     format: {with: /\A[0-9]+\z/}
     validates :token
+    validates :item_id
+    validates :user_id
   end
   
   def save

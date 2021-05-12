@@ -14,6 +14,11 @@ RSpec.describe PurchaseAddress, type: :model do
       it '全ての情報が正しく入力されていれば保存できること' do
         expect(@purchase_address).to be_valid
       end
+      it '建物名がからでも保存できる' do
+        @purchase_address.address_line2 = ''
+        @purchase_address.valid?
+        expect(@purchase_address).to be_valid
+      end
     end   
 
 
@@ -66,10 +71,28 @@ RSpec.describe PurchaseAddress, type: :model do
         expect(@purchase_address.errors.full_messages).to include("Tel is too long (maximum is 11 characters)")
       end
 
+      it 'telが英数字混合だと保存できない' do
+        @purchase_address.tel = '12345aaaaaa'
+        @purchase_address.valid?   
+        expect(@purchase_address.errors.full_messages).to include("Tel is invalid")
+      end
+
       it "tokenが空では保存できない" do
         @purchase_address.token = nil
         @purchase_address.valid?
         expect(@purchase_address.errors.full_messages).to include("Token can't be blank")
+      end
+
+      it "user_idが空では保存できない" do
+        @purchase_address.user_id = nil
+        @purchase_address.valid?
+        expect(@purchase_address.errors.full_messages).to include("User can't be blank")
+      end
+
+      it "item_idが空では保存できない" do
+        @purchase_address.item_id = nil
+        @purchase_address.valid?
+        expect(@purchase_address.errors.full_messages).to include("Item can't be blank")
       end
     end   
 
