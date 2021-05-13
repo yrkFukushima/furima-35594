@@ -42,7 +42,7 @@ class PurchasesController < ApplicationController
 
 
   def user_set
-    if @purchase_address.present? || current_user.id == @item.user_id
+    if @item.purchase.present? || current_user.id == @item.user_id
       redirect_to root_path
     end  
   end  
