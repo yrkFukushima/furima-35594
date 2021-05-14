@@ -1,9 +1,8 @@
 class CommentsController < ApplicationController
   def create
-    @comments = Comment.all
     @comment = Comment.new(comment_params)
     if @comment.save 
-      ActionCable.server.broadcast 'comment_channel', content: @comment
+      ActionCable.server.broadcast 'comment_channel', content: @comment, nickname: current_user.nickname
       redirect_to item_path(params[:item_id])
     end  
   end
