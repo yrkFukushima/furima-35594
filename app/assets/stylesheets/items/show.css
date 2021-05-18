@@ -25,8 +25,13 @@
   font-size: 25px;
 }
 
+.item-box-img{
+  width:100%;
+}
+
 .item-img-contents{
-  display: flex;
+  position: relative;
+  display:flex;
   display: grid;
   grid-template-rows: 1fr 1fr 1fr ;
   grid-template-columns: 1fr 1fr 1fr;
@@ -46,6 +51,7 @@
 #\31.item-box-img{
   grid-column: 2/3;
   grid-row: 3/4;
+  padding: 0 25px;
 }
   
 
@@ -53,12 +59,31 @@
 #\32.item-box-img{
   grid-column: 1/2;
   grid-row: 3/4;
+  padding-left: 50px;
 }
 
 #\33.item-box-img{
   grid-column: 3/4;
   grid-row: 3/4;
+  padding-right: 50px;
   
+}
+
+.sold-out-label{
+  display: inline-block;
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  text-align: center;
+  background-color: crimson;
+  transform: skewY(-10deg);
+
+}
+
+.sold-out-label>span {
+  color: #FFF;
+  font-size: 45px;
+  font: bold;
 }
 
 
@@ -262,3 +287,4 @@
   justify-content: center;
   align-items: ;
 } */
+
