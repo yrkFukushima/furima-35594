@@ -1,7 +1,7 @@
 class Item < ApplicationRecord
 
   belongs_to :user
-  has_one_attached :image
+  has_many_attached :images
   has_one :purchase
   has_many :comments
   extend ActiveHash::Associations::ActiveRecordExtensions
@@ -27,6 +27,6 @@ class Item < ApplicationRecord
     validates :price,
     numericality: { greater_than_or_equal_to: 300, less_than_or_equal_to: 9999999 },
     format: {with: /\A[0-9]+\z/}
-    validates :image
+    validates :images
   end  
 end
