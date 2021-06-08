@@ -19,22 +19,19 @@ class PurchasesController < ApplicationController
   
   def create
     @purchase_address = PurchaseAddress.new(purchase_params)
-    if save_card
-      @purchase_address.token = current_user.card.customer_token
-      if @purchase_address.valid?
-        pay_item
-        @purchase_address.save
-        redirect_to root_path
-      else
-        render :index
+    card = Card.find_by(user_id: current_user.id) 
+      if card.present?
+        customer = Payjp::Customer.retrieve(card.customer_token)
+        @card = customer.cards.first
+        @purchase_address.token = current_user.card.customer_token
       end  
-    elsif @purchase_address.valid?
-        pay_item
-        @purchase_address.save
-        redirect_to root_path
-      else
-        render :index
-      end 
+
+    if @purchase_address.valid?
+      pay_item
+      @purchase_address.save
+      redirect_to root_path
+    else
+      render :index
     end  
   end
 
@@ -67,19 +64,6 @@ class PurchasesController < ApplicationController
     end
   end
 
-  def save_card
-    Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
-    card = Card.find_by(user_id: current_user.id) 
-
-    if card.present?
-      customer = Payjp::Customer.retrieve(card.customer_token)
-      @card = customer.cards.first
-    end  
-  end  
-
-
-
-
   def item_set
     @item = Item.find(params[:item_id])
   end  
@@ -91,4 +75,5 @@ class PurchasesController < ApplicationController
       redirect_to root_path
     end  
   end  
+end  
 
